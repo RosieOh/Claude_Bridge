@@ -1,0 +1,19 @@
+{
+  "name": "csm",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Claude Session Manager - Proxy & menu bar for token/cost/context management",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:proxy\" \"npm run dev:app\"",
+    "dev:app": "cd app && npm run tauri dev",
+    "dev:proxy": "cd proxy && npm run dev",
+    "build": "cd app && npm run tauri build",
+    "proxy": "cd proxy && npm start",
+    "db:generate": "cd proxy && npx prisma generate",
+    "db:push": "cd proxy && npx prisma db push",
+    "db:studio": "cd proxy && npx prisma studio"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
