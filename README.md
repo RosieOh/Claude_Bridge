@@ -69,6 +69,8 @@ npm run dev:app
 
 메뉴바에 CSM 아이콘이 나타나고, 클릭 시 "Open Dashboard" / "Quit" 메뉴가 열립니다. 대시보드 창에서는 프록시 `/internal/status`를 5초마다 폴링해 표시합니다.
 
+프록시 포트를 바꾼 경우(`proxy/.env`의 `PORT`) 앱에서 `app/.env` 또는 `app/.env.local`에 `VITE_PROXY_URL=http://127.0.0.1:원하는포트` 를 설정하세요.
+
 ### 4. 프록시만 테스트 (Claude echo)
 
 ```bash
@@ -87,13 +89,15 @@ curl -X POST http://127.0.0.1:37891/v1/messages \
 | Phase | 내용 |
 |-------|------|
 | **0** | ✅ Tauri 메뉴바 뼈대, 프록시 Claude echo |
-| **1** | 세션/요청/토큰 메타 기록, 메뉴바 토큰 표시, 세션 리스트·상세 창 |
-| **2** | 자동 요약 트리거, Summarize Now, pinned 메시지 |
+| **1** | ✅ 세션/요청/토큰 메타 기록, 메뉴바 토큰 표시, 세션 리스트·상세 창 |
+| **2** | ✅ 자동 요약 트리거(80%), Summarize Now(Claude 호출), pinned 메시지 |
 | **3** | Budget Guard, Spike 감지, Export/Import |
 
 ## 문서
 
 - [스펙 분석 (SPEC_ANALYSIS.md)](docs/SPEC_ANALYSIS.md) — 제품 요약, IA/시스템 설계, 데이터 모델, 리스크, 권장 진행 순서
+- [개선 제안 (IMPROVEMENTS.md)](docs/IMPROVEMENTS.md) — 기능·코드·UX·운영·보안 개선 포인트
+- [Phase 1 설계·작업 순서 (PHASE1_PLAN.md)](docs/PHASE1_PLAN.md) — 세션/토큰 기록·status 실데이터·세션 리스트 구현 순서
 
 ## 라이선스
 
