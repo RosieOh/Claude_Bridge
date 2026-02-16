@@ -1,0 +1,83 @@
+// CSM - Claude Session Manager
+// MVP schema: sessions, messages, requests
+// Phase 2: summaries, policies
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id                 String    @id @default(uuid())
+  name               String?
+  model              String    @default("claude-sonnet-4-20250514")
+  tokenLimit         Int       @default(200000)
+  tokenUsedInput    Int       @default(0)
+  tokenUsedOutput   Int       @default(0)
+  costEstimated     Float     @default(0)
+  status             String    @default("ok") // ok | warn | critical
+  clientId           String?
+  tags               String?   // JSON array
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  messages          Message[]
+  requests          Request[]
+  summaries         Summary[]
+}
+
+model Message {
+  id           String   @id @default(uuid())
+  sessionId    String
+  role         String   // system | user | assistant | tool
+  content      String?  // optional when logging_level = minimal
+  tokenCountEst Int     @default(0)
+  pinned       Boolean  @default(false)
+  hash         String?  // dedupe
+  createdAt    DateTime @default(now())
+
+  session      Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model Request {
+  id           String   @id @default(uuid())
+  sessionId    String
+  endpoint     String   @default("/v1/messages")
+  requestMeta  String?  // JSON
+  responseMeta String?  // JSON
+  inputTokens  Int      @default(0)
+  outputTokens Int      @default(0)
+  cost         Float    @default(0)
+  latencyMs    Int?
+  createdAt    DateTime @default(now())
+
+  session      Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model Summary {
+  id                    String   @id @default(uuid())
+  sessionId             String
+  version               Int      @default(1)
+  summaryText           String
+  coveredUntilMessageId String?
+  tokenCount            Int      @default(0)
+  createdAt             DateTime @default(now())
+
+  session               Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model Policy {
+  id                      String   @id @default(uuid())
+  autoSummaryThreshold    Int      @default(80)   // trigger at 80%
+  criticalThreshold       Int      @default(90)
+  budgetDaily             Float?
+  budgetMonthly           Float?
+  loggingLevel            String   @default("standard") // minimal | standard | full
+  piiRedactionRules       String?  // JSON
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
