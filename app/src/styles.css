@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-  max-width: 560px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
@@ -24,6 +24,7 @@ h2 {
   font-size: 0.95rem;
   color: #888;
   margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 ul {
@@ -55,4 +56,271 @@ code {
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   font-size: 0.9em;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.card {
+  background: #252525;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-label {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-warn {
+  border: 1px solid #fa0;
+  color: #fa0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #333;
+  color: #e0e0e0;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #404040;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn-danger {
+  border-color: #a44;
+  color: #f88;
+  background: transparent;
+}
+
+.btn-danger:hover {
+  background: #3d1a1a;
+}
+
+.new-session-hint {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.session-id {
+  word-break: break-all;
+}
+
+.session-list {
+  margin-top: 0.5rem;
+}
+
+.session-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.session-row:hover {
+  background: #252525;
+}
+
+.session-name {
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.session-meta {
+  color: #888;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.session-status {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-ok {
+  background: #1a3d1a;
+  color: #8c8;
+}
+
+.status-warn {
+  background: #3d3d1a;
+  color: #fa0;
+}
+
+.status-critical {
+  background: #3d1a1a;
+  color: #f88;
+}
+
+.detail-panel {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+}
+
+.detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.success-msg {
+  color: #6a6;
+  margin-top: 0.5rem;
+}
+
+.message-list {
+  margin-top: 0.5rem;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.message-user {
+  background: #1a2a3a;
+  border-left: 3px solid #4a9;
+}
+
+.message-assistant {
+  background: #1a2a1a;
+  border-left: 3px solid #6a6;
+}
+
+.message-system {
+  background: #2a2a2a;
+  border-left: 3px solid #888;
+}
+
+.message-role {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.message-content {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.message-tokens {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-pin {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  border: 1px solid #444;
+  background: transparent;
+  color: #888;
+}
+
+.btn-pin:hover {
+  color: #e0e0e0;
+}
+
+.message-pinned {
+  border-left-color: #fa0;
+}
+
+.summaries-section {
+  margin: 1rem 0;
+}
+
+.summaries-section h3,
+.detail-panel h3 {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.summary-block {
+  background: #252525;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-left: 3px solid #6a6;
+}
+
+.summary-meta {
+  font-size: 0.75rem;
+  color: #666;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.summary-text {
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  color: #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.footer {
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #252525;
 }
