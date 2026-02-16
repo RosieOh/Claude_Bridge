@@ -1,0 +1,24 @@
+[package]
+name = "csm-app"
+version = "0.1.0"
+description = "Claude Session Manager - menu bar & dashboard"
+authors = ["CSM"]
+edition = "2021"
+rust-version = "1.70"
+
+[lib]
+name = "csm_app_lib"
+path = "src/lib.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset", "tray-icon"] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
