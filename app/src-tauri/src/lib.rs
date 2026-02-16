@@ -1,6 +1,6 @@
 use tauri::menu::{Menu, MenuItem};
-use tauri::tray::TrayIconBuilder;
-use tauri::{AppHandle, Image, Manager};
+use tauri::tray::{TrayIcon, TrayIconBuilder};
+use tauri::{AppHandle, Image, Manager, State};
 
 fn make_tray_menu(app: &AppHandle) -> Result<Menu<tauri::Wry>, Box<dyn std::error::Error>> {
     let dashboard = MenuItem::with_id(app, "dashboard", "Open Dashboard", true, None)?;
@@ -12,7 +12,6 @@ fn make_tray_menu(app: &AppHandle) -> Result<Menu<tauri::Wry>, Box<dyn std::erro
 fn setup_tray(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
     let menu = make_tray_menu(app)?;
 
-    // Try resource dir (production) or CARGO_MANIFEST_DIR/icons (dev)
     let icon_path = app
         .path()
         .resource_dir()
@@ -28,7 +27,7 @@ fn setup_tray(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
         None => Image::from_bytes(include_bytes!("../icons/32x32.png"))?,
     };
 
-    let _tray = TrayIconBuilder::new()
+    let tray = TrayIconBuilder::new()
         .menu(&menu)
         .icon(icon)
         .tooltip("CSM — Claude Session Manager")
@@ -45,13 +44,23 @@ fn setup_tray(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
         })
         .build(app)?;
 
+    app.manage(tray);
     Ok(())
+}
+
+#[tauri::command]
+fn set_tray_tooltip(
+    tray: State<'_, TrayIcon<tauri::Wry>>,
+    tooltip: Option<String>,
+) -> Result<(), String> {
+    tray.set_tooltip(tooltip.as_deref()).map_err(|e| e.to_string())
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
+        .invoke_handler(tauri::generate_handler![set_tray_tooltip])
         .setup(|app| {
             #[cfg(desktop)]
             {
