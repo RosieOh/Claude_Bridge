@@ -1,0 +1,10 @@
+node_modules
+dist
+*.db
+.env
+.DS_Store
+target
+app/src-tauri/target
+*.log
+.env.local
+.env.*.local
